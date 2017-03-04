@@ -29,3 +29,4 @@ x64/Release/engine.dll
 x64/Release/engine.lib
 x64/Release/helperlib.lib
 Debug/engine.lib
+*.suo
