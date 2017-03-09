@@ -17,7 +17,7 @@ SoundSystem::~SoundSystem()
 void SoundSystem::CheckError( FMOD_RESULT result )
 {
 	if ( result != FMOD_OK )
-		Msg( ( std::string )"[FMOD]Error: " + FMOD_ErrorString( result ) );
+		Msg( ( std::string )"[FMOD]Error: " + FMOD_ErrorString( result ) + "\n" );
 }
 
 void SoundSystem::Setup()

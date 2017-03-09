@@ -30,3 +30,6 @@ x64/Release/engine.lib
 x64/Release/helperlib.lib
 Debug/engine.lib
 *.suo
+Debug/helperlib.lib
+x64/Debug/helperlib.lib
+src/lib/public/x86/helperlib.lib

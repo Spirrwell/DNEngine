@@ -45,9 +45,6 @@ public:
 	unsigned long GetNumFileEntries() { return m_FileEntries; }
 	bool IsValid() { return m_bValid; }
 
-	//Seeks to a file in GRP based on name, returns file container or nullptr if failed. Also takes ifstream reference
-	//GRPEmbeddFileContainer *SeekToFileInGRP( const std::string &fileName, std::ifstream &grpStream );
-
 	void GetFileInGRP( const std::string &fileName, MemoryFileReader &fileReader );
 
 private:

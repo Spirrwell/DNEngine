@@ -7,6 +7,7 @@
 
 #include "SDL.h"
 #include "SDL_opengl.h"
+#include "sound.h"
 
 //Implementation of IEngine
 class Engine : public IEngine

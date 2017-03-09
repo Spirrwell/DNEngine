@@ -163,56 +163,6 @@ void GRP::SpewFileInformation()
 		Msg( m_vecFiles[i].GetFileName() + " | " + std::to_string( m_vecFiles[i].GetSize_KBytes() ) + "KB | Position: " + std::to_string( m_vecFiles[i].GetPosition() ) + "\n" );
 }
 
-/*GRPEmbeddFileContainer *GRP::SeekToFileInGRP( const std::string &fileName, std::ifstream &grpStream )
-{
-	if ( grpStream.is_open() )
-	{
-		Msg( "Trying to seek an already open stream!\n" );
-		return nullptr;
-	}
-
-	GRPEmbeddFileContainer *localContainer = nullptr;
-
-	for ( unsigned int i = 0; i < m_vecFiles.size(); i++ )
-	{
-		std::string embeddedFileName = m_vecFiles[i].GetFileName();
-		std::string inputFileName = fileName;
-
-		std::transform( embeddedFileName.begin(), embeddedFileName.end(), embeddedFileName.begin(), ::tolower );
-		std::transform( inputFileName.begin(), inputFileName.end(), inputFileName.begin(), ::tolower );
-
-		if ( inputFileName == embeddedFileName )
-		{
-			localContainer = &m_vecFiles[i];
-			break;
-		}
-	}
-	if ( localContainer == nullptr )
-	{
-		Msg( "File container not found!\n" );
-		return nullptr;
-	}
-
-	grpStream.open( m_szfileName, std::ifstream::in | std::ifstream::binary );
-
-	if ( !grpStream.good() )
-	{
-		Msg( "GRP failed to open\n" );
-		return nullptr;
-	}
-
-	grpStream.seekg( localContainer->GetPosition() );
-
-	if ( !grpStream.good() )
-	{
-		Msg( "Failed to seek embedded file position!\n" );
-		grpStream.close();
-		return nullptr;
-	}
-	
-	return localContainer;
-}*/
-
 void GRP::GetFileInGRP( const std::string &fileName, MemoryFileReader &fileReader )
 {
 	if ( !IsValid() || !m_GRPFile.is_open() )
@@ -247,6 +197,7 @@ void GRP::GetFileInGRP( const std::string &fileName, MemoryFileReader &fileReade
 
 	if ( fileContainer != nullptr )
 	{
+		//Should really look into creating a virtual filesystem to avoid copying files into memory.
 		void *buffer = malloc( fileContainer->GetSize_Bytes() );
 
 		m_GRPFile.read( ( char* )buffer, fileContainer->GetSize_Bytes() );

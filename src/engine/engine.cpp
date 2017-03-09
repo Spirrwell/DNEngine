@@ -1,7 +1,6 @@
 #include "engine.h"
 #include "basehelpers.h"
 #include "soundsystem.h"
-#include "sound.h"
 #include "memoryfile.h"
 
 extern SoundSystem *g_SoundSystem;
@@ -141,44 +140,10 @@ void Engine::RunEngine()
 	//m_pMainGRP->DumpGRP();
 
 	//Bunch of test code
-	Sound grabbag( "GRABBAG.MID", true, true );
+	Sound test( "ANNOY03.VOC", true, true );
 	Msg( ( std::string )"Size of VOCMainHeader_t: " + std::to_string( sizeof( VOCMainHeader_t ) ) + "\n" );
-	Msg( ( std::string )"Size of VOCDataBlock_t: " + std::to_string( sizeof( VOCDataBlock_t ) ) + "\n" );
 	Msg( ( std::string )"Size of VOCDataBlock_SoundData_t: " + std::to_string( sizeof( VOCDataBlock_SoundData_t ) ) + "\n" );
-
-
-	MemoryFileReader frVOC;
-	m_pMainGRP->GetFileInGRP( "GRUN.VOC", frVOC );
-
-	if ( frVOC.IsOpen() )
-	{
-		char buffer[20];
-
-		VOCMainHeader_t *mainHeader = new VOCMainHeader_t;
-		frVOC.Read( ( char* )mainHeader, sizeof( VOCMainHeader_t ) );
-
-		if ( !frVOC.Good() )
-		{
-			frVOC.PrintStateFlags();
-		}
-
-		memcpy( buffer, mainHeader->identifierStr, 19 );
-		buffer[19] = '\0';
-
-		Msg( ( std::string )buffer + "\n" );
-
-		Msg( ( std::string )"Header Size: " + std::to_string( mainHeader->headerSize ) + "\n" );
-		Msg( ( std::string )"Minor Version: " + std::to_string( mainHeader->version[0] ) + ", Major Version: " + std::to_string( mainHeader->version[1] ) + "\n" );
-
-		Msg( ( std::string )"Validity: " + std::to_string( mainHeader->validity ) + "\n" );
-
-		if ( mainHeader->validity == ( 0x1234 + ~( mainHeader->version[0] | ( mainHeader->version[1] << 8 ) ) ) )
-			Msg( "Validity passed!\n" );
-
-		delete mainHeader;
-
-		frVOC.CloseAndFreeMemory();
-	}
+	Msg( ( std::string )"Size of VOCDataBlock_SoundDataNewFormat_t: " + std::to_string( sizeof( VOCDataBlock_SoundDataNewFormat_t ) ) + "\n" );
 
 	//DN3D.SpewFileInformation();
 	//DN3D.DumpGRP();

@@ -19,19 +19,38 @@ enum VOCBlockType
 	BlockType_SoundDataNewFormat = 0x09,
 };
 
-typedef struct
+enum VOCCodecID
 {
-	unsigned char blockType;
-	unsigned char blockSize[3];
-	
-} VOCDataBlock_t;
+	CodecID_8bitsUnsignedPCM = 0x00,
+	CodecID_4bitsto8bitsCreativeADPCM = 0x01,
+	CodecID_3bitsto8bitsCreativeADPCM = 0x02, //AKA 2.6 bits https://wiki.multimedia.cx/index.php?title=Creative_Voice
+	CodecID_2bitsto8bitsCreativeADPCM = 0x03,
+	CodecID_16bitsSignedPCM = 0x04,
+	CodecID_alaw = 0x06,
+	CodecID_ulaw = 0x07,
+	CodecID_4bitsto16bitsCreativeADPCM = 0x0200, //Only valid in block type 0x09
+	CodecID_Invalid = 0x666, //Imaginary codec type
+};
 
 typedef struct
 {
 	unsigned char frequencyDivisor;
 	unsigned char codecID;
-	void *audioData;
+
+	//bytes at this point are audio data at size of blockSize - sizeof( VOCDataBlock_SoundData_t )
 } VOCDataBlock_SoundData_t;
+
+static_assert( sizeof( unsigned int ) == 4, "sampleRate is 4 bytes" );
+
+typedef struct
+{
+	unsigned int sampleRate;
+	unsigned char bitsPerSample;
+	unsigned char numChannels;
+	unsigned char codecID[2];
+	unsigned char reserved[4]; //Empty space?
+	//bytes at this point are audio data at size of blockSize - sizeof( VOCDataBlock_SoundDataNewFormat_t )
+} VOCDataBlock_SoundDataNewFormat_t;
 
 typedef struct
 {
@@ -43,9 +62,12 @@ typedef struct
 
 } VOCMainHeader_t;
 
+void PrintCodecID( VOCCodecID id );
+
 class Sound
 {
 public:
+	//Sound( std::string fileName, void *vocData = nullptr, unsigned int vocSize = 0, int sampleRate = 0, VOCCodecID codecID = CodecID_Invalid, int numChannels = 1, bool bLooping = false, bool bGlobal = false, float flRadius = 200.0f );
 	Sound( std::string fileName, bool bLooping = false, bool bGlobal = false, float flRadius = 200.0f );
 	~Sound();
 
