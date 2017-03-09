@@ -4,7 +4,7 @@
 
 GRPEmbeddFileContainer::GRPEmbeddFileContainer( const std::string &fileName, unsigned long size, unsigned long position )
 {
-	//And unsigned long should always be at LEAST 4 bytes, we may just want to read 4 bytes directly instead of sizeof
+	//An unsigned long should always be at LEAST 4 bytes, we may just want to read 4 bytes directly instead of sizeof
 	static_assert( sizeof ( unsigned long ) == 4, "Unsigned long needs to be 4 bytes for GRP reading." );
 
 	m_szfileName = fileName;
