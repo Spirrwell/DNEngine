@@ -1,7 +1,7 @@
 #include "memoryfile.h"
 #include <iostream>
 
-MemoryFileReader::MemoryFileReader()
+MemoryReader::MemoryReader()
 {
 	m_pMemoryBuffer = nullptr;
 	ResetFlags();
@@ -9,17 +9,17 @@ MemoryFileReader::MemoryFileReader()
 	m_ullSize = 0;
 }
 
-MemoryFileReader::MemoryFileReader( char *memFile, unsigned long long size ) : MemoryFileReader()
+MemoryReader::MemoryReader( char *memFile, unsigned long long size ) : MemoryReader()
 {
 	Open( memFile, size );
 }
 
-MemoryFileReader::~MemoryFileReader()
+MemoryReader::~MemoryReader()
 {
 
 }
 
-void MemoryFileReader::Open( char *memFile, unsigned long long size )
+void MemoryReader::Open( char *memFile, unsigned long long size )
 {
 	if ( m_pMemoryBuffer != nullptr )
 	{
@@ -42,7 +42,7 @@ void MemoryFileReader::Open( char *memFile, unsigned long long size )
 	m_ullSize = size;
 }
 
-void MemoryFileReader::Close()
+void MemoryReader::Close()
 {
 	m_pMemoryBuffer = nullptr;
 	m_ullPosition = 0;
@@ -51,7 +51,7 @@ void MemoryFileReader::Close()
 	ResetFlags();
 }
 
-void MemoryFileReader::CloseAndFreeMemory()
+void MemoryReader::CloseAndFreeMemory()
 {
 	if ( m_pMemoryBuffer != nullptr )
 		free( m_pMemoryBuffer );
@@ -59,7 +59,7 @@ void MemoryFileReader::CloseAndFreeMemory()
 	Close();
 }
 
-void MemoryFileReader::SeekTo( unsigned long long position )
+void MemoryReader::SeekTo( unsigned long long position )
 {
 	if ( m_pMemoryBuffer == nullptr )
 	{
@@ -82,7 +82,7 @@ void MemoryFileReader::SeekTo( unsigned long long position )
 		m_iStateBits &= ~( MemoryFile_State_EOF );
 }
 
-void MemoryFileReader::ReadByte( unsigned char &byte )
+void MemoryReader::ReadByte( unsigned char &byte )
 {
 	if ( m_pMemoryBuffer == nullptr )
 	{
@@ -109,7 +109,7 @@ void MemoryFileReader::ReadByte( unsigned char &byte )
 		m_ullPosition++;
 }
 
-void MemoryFileReader::Read( char *data, unsigned long long count )
+void MemoryReader::Read( char *data, unsigned long long count )
 {
 	if ( m_pMemoryBuffer == nullptr )
 	{
@@ -139,7 +139,7 @@ void MemoryFileReader::Read( char *data, unsigned long long count )
 	}
 }
 
-void MemoryFileReader::PrintStateFlags()
+void MemoryReader::PrintStateFlags()
 {
 	std::cout << "MemoryFileReader State Flags: \n\n";
 

@@ -1,15 +1,15 @@
 #ifndef MEMORYFILE_H
 #define MEMORYFILE_H
 
-class MemoryFileReader
+class MemoryReader
 {
 public:
-	MemoryFileReader();
-	MemoryFileReader( char* memFile, unsigned long long size ); //Opens file in memory on creation
+	MemoryReader();
+	MemoryReader( char* memFile, unsigned long long size ); //Opens file in memory on creation
 
-	~MemoryFileReader();
+	~MemoryReader();
 
-	//Opens file in memory
+	//Opens memory for reading
 	void Open( char* memFile, unsigned long long size );
 
 	//Completely resets file reader, can also free memory

@@ -33,3 +33,5 @@ Debug/engine.lib
 Debug/helperlib.lib
 x64/Debug/helperlib.lib
 src/lib/public/x86/helperlib.lib
+Duke3DEngine.VC.db
+Duke3DEngine.VC.VC.opendb

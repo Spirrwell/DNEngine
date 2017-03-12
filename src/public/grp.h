@@ -45,7 +45,7 @@ public:
 	unsigned long GetNumFileEntries() { return m_FileEntries; }
 	bool IsValid() { return m_bValid; }
 
-	void GetFileInGRP( const std::string &fileName, MemoryFileReader &fileReader );
+	void GetFileInGRP( const std::string &fileName, MemoryReader &fileReader );
 
 private:
 	std::ifstream m_GRPFile;

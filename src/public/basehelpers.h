@@ -4,5 +4,6 @@
 #include <string>
 
 void Msg( const std::string &msg );
+void MsgC( const char *msg, ... );
 
 #endif

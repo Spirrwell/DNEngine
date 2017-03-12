@@ -67,7 +67,6 @@ void PrintCodecID( VOCCodecID id );
 class Sound
 {
 public:
-	//Sound( std::string fileName, void *vocData = nullptr, unsigned int vocSize = 0, int sampleRate = 0, VOCCodecID codecID = CodecID_Invalid, int numChannels = 1, bool bLooping = false, bool bGlobal = false, float flRadius = 200.0f );
 	Sound( std::string fileName, bool bLooping = false, bool bGlobal = false, float flRadius = 200.0f );
 	~Sound();
 

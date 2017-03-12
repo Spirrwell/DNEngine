@@ -140,7 +140,7 @@ void Engine::RunEngine()
 	//m_pMainGRP->DumpGRP();
 
 	//Bunch of test code
-	Sound test( "ANNOY03.VOC", true, true );
+	Sound test( "B3DIE03G.VOC", true, true );
 	Msg( ( std::string )"Size of VOCMainHeader_t: " + std::to_string( sizeof( VOCMainHeader_t ) ) + "\n" );
 	Msg( ( std::string )"Size of VOCDataBlock_SoundData_t: " + std::to_string( sizeof( VOCDataBlock_SoundData_t ) ) + "\n" );
 	Msg( ( std::string )"Size of VOCDataBlock_SoundDataNewFormat_t: " + std::to_string( sizeof( VOCDataBlock_SoundDataNewFormat_t ) ) + "\n" );

@@ -16,6 +16,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "src\game\Game.vcxpr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "helperlib", "src\helperlib\helperlib.vcxproj", "{61B842B9-BD99-439D-8E7F-C5579D293AF4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MasterServer", "src\masterserver\MasterServer.vcxproj", "{E579C0F4-6F01-41CC-949C-D21B3D1C491E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{61B842B9-BD99-439D-8E7F-C5579D293AF4} = {61B842B9-BD99-439D-8E7F-C5579D293AF4}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -62,6 +67,18 @@ Global
 		{61B842B9-BD99-439D-8E7F-C5579D293AF4}.Release|Win32.Build.0 = Release|Win32
 		{61B842B9-BD99-439D-8E7F-C5579D293AF4}.Release|x64.ActiveCfg = Release|x64
 		{61B842B9-BD99-439D-8E7F-C5579D293AF4}.Release|x64.Build.0 = Release|x64
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Debug|Win32.Build.0 = Debug|Win32
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Debug|x64.ActiveCfg = Debug|x64
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Debug|x64.Build.0 = Debug|x64
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Release|Win32.ActiveCfg = Release|Win32
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Release|Win32.Build.0 = Release|Win32
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Release|x64.ActiveCfg = Release|x64
+		{E579C0F4-6F01-41CC-949C-D21B3D1C491E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

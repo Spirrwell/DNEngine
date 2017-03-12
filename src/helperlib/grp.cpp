@@ -163,7 +163,7 @@ void GRP::SpewFileInformation()
 		Msg( m_vecFiles[i].GetFileName() + " | " + std::to_string( m_vecFiles[i].GetSize_KBytes() ) + "KB | Position: " + std::to_string( m_vecFiles[i].GetPosition() ) + "\n" );
 }
 
-void GRP::GetFileInGRP( const std::string &fileName, MemoryFileReader &fileReader )
+void GRP::GetFileInGRP( const std::string &fileName, MemoryReader &fileReader )
 {
 	if ( !IsValid() || !m_GRPFile.is_open() )
 	{
