@@ -1,0 +1,1 @@
+devtools\bin\premake\premake5.exe --file=DNEnginePremake.lua vs2015

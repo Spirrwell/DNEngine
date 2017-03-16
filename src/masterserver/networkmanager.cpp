@@ -13,18 +13,6 @@ enum PacketType
 	PacketType_Invalid
 };
 
-static_assert( sizeof( unsigned short ) == 2, "Unsigned short needs to be 2 bytes" );
-struct MasterServerHeader_t
-{
-	char header[8]; //Non-Null terminated "DNEngine", we could ditch this, but the master server shouldn't process much
-	unsigned short packetType; //Tells master server we're a normal server header
-	char serverName[256];
-	unsigned char version[3];
-	unsigned short maxPlayers;
-	unsigned short numPlayers;
-	char serverTags[128];
-};
-
 NetworkManager::NetworkManager()
 {
 	m_bSetup = false;
@@ -61,10 +49,10 @@ bool NetworkManager::SetupHosts()
 	}
 
 	m_MasterAddress.host = ENET_HOST_ANY;
-	m_MasterAddress.port = 27015;
+	m_MasterAddress.port = MASTERSERVER_PORT;
 
 	m_RelayAddress.host = ENET_HOST_ANY;
-	m_RelayAddress.port = 27016;
+	m_RelayAddress.port = MASTERSERVER_RELAY_PORT;
 
 	m_pMasterServer = enet_host_create( &m_MasterAddress,
 		ENET_PROTOCOL_MAXIMUM_PEER_ID,
@@ -165,6 +153,9 @@ void NetworkManager::RunMaster( std::atomic_bool &quit )
 
 		std::this_thread::sleep_for( 16ms );
 	}
+
+	for ( unsigned int i = 0; i < g_NetworkManager.m_vecMasterServerHeaders.size(); i++ )
+		delete g_NetworkManager.m_vecMasterServerHeaders[i];
 }
 
 void NetworkManager::RunRelay( std::atomic_bool &quit )
