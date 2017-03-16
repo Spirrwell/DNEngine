@@ -2,7 +2,6 @@ Debug/engine.dll
 *.exp
 *.ilk
 *.pdb
-*.exe
 *.opensdf
 *.sdf
 *.grp
@@ -58,3 +57,13 @@ build/x86/Debug/engine.dll
 build/x86/Debug/engine.lib
 build/x86/Debug/helperlib.lib
 src/game/obj/Win32/Debug/Game.res
+build/x64/Debug/Game.exe
+build/x64/Debug/MasterServer.exe
+build/x64/Release/Game.exe
+build/x64/Release/MasterServer.exe
+build/x86/Debug/Game.exe
+build/x86/Debug/MasterServer.exe
+build/x86/Release/Game.exe
+build/x86/Release/MasterServer.exe
+game/bin/x64/Game.exe
+game/bin/x86/Game.exe
