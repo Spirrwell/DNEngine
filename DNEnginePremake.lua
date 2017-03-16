@@ -1,6 +1,8 @@
 workspace "Duke3DEngine"
 	configurations { "Debug", "Release" }
-	platforms { "Win32", "Win64" }
+	filter { "system:Windows" }
+		platforms { "Win32", "Win64" }
+		toolset "v140_xp"
 	
 project "Engine"
 	kind "SharedLib"
