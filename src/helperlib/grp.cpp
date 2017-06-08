@@ -4,9 +4,6 @@
 
 GRPEmbeddFileContainer::GRPEmbeddFileContainer( const std::string &fileName, unsigned long size, unsigned long position )
 {
-	//An unsigned long should always be at LEAST 4 bytes, we may just want to read 4 bytes directly instead of sizeof
-	static_assert( sizeof ( unsigned long ) == 4, "Unsigned long needs to be 4 bytes for GRP reading." );
-
 	m_szfileName = fileName;
 	m_Size = size;
 	m_Position = position;
@@ -29,7 +26,7 @@ GRP::GRP( const std::string &grpFileName )
 	}
 
 	char buffer[13];
-	unsigned long fileCount, fileIndex;
+	uint32_t fileCount, fileIndex;
 	GRPEmbeddedFile_t **fileList;
 
 	m_GRPFile.read( buffer, 12 );
@@ -43,7 +40,7 @@ GRP::GRP( const std::string &grpFileName )
 		return;
 	}
 
-	m_GRPFile.read( ( char* )&fileCount, sizeof( unsigned long ) );
+	m_GRPFile.read( ( char* )&fileCount, sizeof( uint32_t ) );
 
 	m_FileEntries = fileCount;
 

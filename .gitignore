@@ -72,3 +72,6 @@ src/game/obj/Win64/Debug/Game.vcxprojResolveAssemblyReference.cache
 src/masterserver/obj/Win64/Debug/MasterServer.vcxprojResolveAssemblyReference.cache
 src/masterserver/obj/Win32/Debug/MasterServer.vcxprojResolveAssemblyReference.cache
 src/engine/obj/Win32/Debug/Engine.vcxprojResolveAssemblyReference.cache
+src/game/obj/Win32/Debug/Game.vcxprojResolveAssemblyReference.cache
+src/game/obj/Win64/Release/Game.vcxprojResolveAssemblyReference.cache
+src/masterserver/obj/Win64/Release/MasterServer.vcxprojResolveAssemblyReference.cache

@@ -9,8 +9,8 @@
 
 typedef struct
 {
-	char		szLabel[12]; //File name
-	long		nSize; //Size in bytes
+	char		szLabel[12]; // File name
+	uint32_t	nSize; // Size in bytes
 } GRPEmbeddedFile_t;
 
 //Stores information from GRPEmbeddedFile_t
@@ -25,9 +25,9 @@ public:
 
 	unsigned long GetPosition() { return m_Position; }
 private:
-	std::string m_szfileName; //Name of the file this refers to
-	unsigned long m_Size; //Size of file in bytes
-	unsigned long m_Position; //Position of file in GRP
+	std::string m_szfileName; // Name of the file this refers to
+	unsigned long m_Size; // Size of file in bytes
+	unsigned long m_Position; // Position of file in GRP
 };
 
 class GRP
@@ -36,10 +36,10 @@ public:
 	GRP( const std::string &grpFileName );
 	~GRP();
 
-	//Dumps GRP Contents
+	// Dumps GRP Contents
 	void DumpGRP();
 
-	//Just some information spew
+	// Just some information spew
 	void SpewFileInformation();
 
 	unsigned long GetNumFileEntries() { return m_FileEntries; }
@@ -50,7 +50,7 @@ public:
 private:
 	std::ifstream m_GRPFile;
 
-	std::vector<GRPEmbeddFileContainer> m_vecFiles;
+	std::vector< GRPEmbeddFileContainer > m_vecFiles;
 	std::string m_szfileName;
 
 	unsigned long m_FileEntries;

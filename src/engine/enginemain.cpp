@@ -14,7 +14,7 @@ int engine_startup( int argc, char *argv[], IGame *game )
 	}
 
 	Msg( "Hello Game, I'm the engine!\n" );
-	MsgC( "Hello Game, I'm the engine using C style %s.\n!", "formatting" );
+	MsgC( "Hello Game, I'm the engine using C style %s!\n", "formatting" );
 
 	return 0;
 }

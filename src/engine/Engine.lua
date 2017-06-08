@@ -7,15 +7,34 @@ project "Engine"
 	files { 
 			"%{cfg.location}/anim.h",
 			"%{cfg.location}/anim.cpp",
+			"%{cfg.location}/baseshader.h",
+			"%{cfg.location}/baseshader.cpp",
 			"%{cfg.location}/engine.h",
 			"%{cfg.location}/engine.cpp",
 			"%{cfg.location}/engine_handler.h",
 			"%{cfg.location}/engine_handler.cpp",
 			"%{cfg.location}/enginemain.cpp",
+			"%{cfg.location}/imesh.h",
+			"%{cfg.location}/ishader.h",
+			"%{cfg.location}/map.h",
+			"%{cfg.location}/map.cpp",
+			"%{cfg.location}/meshgl.h",
+			"%{cfg.location}/meshgl.cpp",
+			"%{cfg.location}/meshvulkan.h",
+			"%{cfg.location}/renderer.h",
+			"%{cfg.location}/renderer.cpp",
+			"%{cfg.location}/sdlmgr.h",
+			"%{cfg.location}/sdlmgr.cpp",
+			"%{cfg.location}/shadergl.h",
+			"%{cfg.location}/shadergl.cpp",
+			"%{cfg.location}/shadersystem.h",
+			"%{cfg.location}/shadersystem.cpp",
 			"%{cfg.location}/sound.h",
 			"%{cfg.location}/sound.cpp",
 			"%{cfg.location}/soundsystem.h",
-			"%{cfg.location}/soundsystem.cpp"
+			"%{cfg.location}/soundsystem.cpp",
+			"%{cfg.location}/vulkanmgr.h",
+			"%{cfg.location}/vulkanmgr.cpp"
 		}
 	
 	includedirs {
@@ -23,6 +42,7 @@ project "Engine"
 				"../thirdparty/glew-2.0.0/include",
 				"../thirdparty/glm",
 				"../thirdparty/SDL-2.0.5/include",
+				"../thirdparty/vulkan/Include",
 				"../public",
 				"../public/engine"
 		}
@@ -32,6 +52,7 @@ project "Engine"
 			"SDL2",
 			"opengl32",
 			"glew32",
+			"vulkan-1",
 			"helperlib" --This will link the project as a build dependency, but for some reason won't link the library itself
 		}
 	

@@ -40,11 +40,9 @@ typedef struct
 	//bytes at this point are audio data at size of blockSize - sizeof( VOCDataBlock_SoundData_t )
 } VOCDataBlock_SoundData_t;
 
-static_assert( sizeof( unsigned int ) == 4, "sampleRate is 4 bytes" );
-
 typedef struct
 {
-	unsigned int sampleRate;
+	uint32_t sampleRate;
 	unsigned char bitsPerSample;
 	unsigned char numChannels;
 	unsigned char codecID[2];

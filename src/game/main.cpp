@@ -14,7 +14,7 @@ int main( int argc, char *argv[] )
 
 	Msg( "Platform is: " + GetEngine()->GetPlatform() + "\n" );
 
-	//Tells engine to run game's main loop
+	// Tells engine to run game's main loop
 	engine_run();
 
 	return 0;

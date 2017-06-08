@@ -35,13 +35,9 @@ private:
 
 	IGame *m_pGame;
 
-	SDL_Window *m_pMainWindow;
-	SDL_GLContext m_GLContext;
-
 	//Will add support for multiple GRPs later
 	GRP *m_pMainGRP;
 
-	bool m_bSDLInitialized;
 	bool m_bRunning;
 };
 

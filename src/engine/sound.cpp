@@ -45,6 +45,8 @@ Sound::Sound( std::string fileName, bool bLooping /*= false*/, bool bGlobal /*= 
 	m_bLooping = bLooping;
 	m_bGlobal = bGlobal;
 	m_flRadius = flRadius;
+	m_pChannel = nullptr;
+	m_pSound = nullptr;
 
 	FMOD_RESULT result;
 
@@ -53,11 +55,11 @@ Sound::Sound( std::string fileName, bool bLooping /*= false*/, bool bGlobal /*= 
 	MemoryReader fileReader;
 	grp->GetFileInGRP( fileName, fileReader );
 
+	memset( &m_SoundExInfo, 0, sizeof( FMOD_CREATESOUNDEXINFO ) );
+	m_SoundExInfo.cbsize = sizeof( FMOD_CREATESOUNDEXINFO );
+
 	if ( fileReader.IsOpen() )
 	{
-		memset( &m_SoundExInfo, 0, sizeof( FMOD_CREATESOUNDEXINFO ) );
-		m_SoundExInfo.cbsize = sizeof( FMOD_CREATESOUNDEXINFO );
-
 		std::string fileExtension = ( fileName.substr( fileName.find_last_of( "." ) + 1 ) );
 		std::transform( fileExtension.begin(), fileExtension.end(), fileExtension.begin(), ::tolower );
 		bool bIsVOC = ( fileExtension == "voc" );
@@ -353,6 +355,13 @@ Sound::Sound( std::string fileName, bool bLooping /*= false*/, bool bGlobal /*= 
 			m_pChannel->setPaused( false );
 		}
 	}
+	else
+	{
+		result = GetSoundSystem()->GetSystem()->createSound( fileName.c_str(), FMOD_DEFAULT, &m_SoundExInfo, &m_pSound );
+		GetSoundSystem()->CheckError( result );
+		result = GetSoundSystem()->GetSystem()->playSound( m_pSound, nullptr, false, &m_pChannel );
+		GetSoundSystem()->CheckError( result );
+	}
 }
 
 Sound::~Sound()
@@ -362,5 +371,6 @@ Sound::~Sound()
 
 	m_pChannel = nullptr;
 
-	m_pSound->release();
+	if ( m_pSound )
+		m_pSound->release();
 }

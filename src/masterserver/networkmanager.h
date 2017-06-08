@@ -11,25 +11,24 @@
 #define MASTERSERVER_PORT 27010;
 #define MASTERSERVER_RELAY_PORT 27011;
 
-static_assert( sizeof( unsigned short ) == 2, "Unsigned short needs to be 2 bytes" );
 struct MasterServerHeader_t
 {
 	char header[8]; //Non-Null terminated "DNEngine", we could ditch this, but the master server shouldn't process much
-	unsigned short packetType; //Tells master server we're a normal server header
+	uint16_t packetType; //Tells master server we're a normal server header
 	char serverName[256];
 	unsigned char version[3];
-	unsigned short maxPlayers;
-	unsigned short numPlayers;
+	uint16_t maxPlayers;
+	uint16_t numPlayers;
 	char serverTags[128];
 };
 
 class ServerInfo
 {
 public:
-	unsigned int GetServerIndex() { return m_uiIndex; }
+	uint32_t GetServerIndex() { return m_uiIndex; }
 
 private:
-	unsigned int m_uiIndex;
+	uint32_t m_uiIndex;
 };
 
 class NetworkManager

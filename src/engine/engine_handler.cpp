@@ -19,7 +19,7 @@ EngineHandler::ERETURNCODE EngineHandler::InitalizeEngine( IGame *game )
 
 	m_pEngine = new Engine;
 
-	//Game is required for initialization and appropriate deletion
+	// Game is required for initialization and appropriate deletion
 	m_pEngine->SetGame( game );
 	m_bInitialized = m_pEngine->Initialize();
 

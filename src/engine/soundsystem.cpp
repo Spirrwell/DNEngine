@@ -48,9 +48,9 @@ void SoundSystem::Setup()
 	CheckError( result );
 }
 
-SoundSystem *g_SoundSystem = nullptr;
+SoundSystem *g_pSoundSystem = nullptr;
 
 SoundSystem *GetSoundSystem()
 {
-	return g_SoundSystem;
+	return g_pSoundSystem;
 }

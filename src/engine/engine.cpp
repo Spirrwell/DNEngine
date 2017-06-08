@@ -2,42 +2,34 @@
 #include "basehelpers.h"
 #include "soundsystem.h"
 #include "memoryfile.h"
-
-extern SoundSystem *g_SoundSystem;
+#include "map.h"
+#include "sdlmgr.h"
+#include "renderer.h"
 
 #include <fstream>
+
+extern SoundSystem *g_pSoundSystem;
 
 Engine::Engine()
 {
 	SetGame( nullptr );
 
 	m_bRunning = false;
-	m_pMainWindow = nullptr;
-	m_bSDLInitialized = false;
 	m_pMainGRP = nullptr;
 }
 
 Engine::~Engine()
 {
+	GetSDLManager()->Shutdown();
+
 	if ( m_pGame )
 		delete m_pGame;
 
 	if ( m_pMainGRP )
 		delete m_pMainGRP;
 
-	if ( g_SoundSystem )
-		delete g_SoundSystem;
-
-	if ( m_bSDLInitialized )
-	{
-		if ( m_GLContext != 0 )
-			SDL_GL_DeleteContext( m_GLContext );
-
-		if ( m_pMainWindow )
-			SDL_DestroyWindow( m_pMainWindow );
-
-		SDL_Quit();
-	}
+	if ( g_pSoundSystem )
+		delete g_pSoundSystem;
 }
 
 std::string Engine::GetPlatform()
@@ -63,64 +55,22 @@ std::string Engine::GetPlatform()
 
 void Engine::UpdateTitle( const std::string &title )
 {
-	if ( m_pMainWindow )
-		SDL_SetWindowTitle( m_pMainWindow, title.c_str() );
+	if ( GetSDLManager()->GetWindow() )
+		SDL_SetWindowTitle( GetSDLManager()->GetWindow(), title.c_str() );
 }
 
 bool Engine::Initialize()
 {
-	if ( !m_bSDLInitialized && SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
-	{
-		std::string error = SDL_GetError();
-		Msg( "[SDL]Failed to initialize: " + error + "\n" );
+	if ( !GetSDLManager()->Init() )
+		return false;
 
+	g_pSoundSystem = new SoundSystem;
+
+	if ( g_pSoundSystem == nullptr )
+	{
+		Msg( "Failed to create sound system. Out of memory.\n" );
 		return false;
 	}
-	else if ( m_bSDLInitialized )
-	{
-		Msg( "[SDL]Already initialized!\n" );
-		return false; //May not want to do this.
-	}
-
-	m_bSDLInitialized = true;
-
-	m_pMainWindow = SDL_CreateWindow( GetGame()->GetTitle().c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
-
-	if ( m_pMainWindow == nullptr )
-	{
-		std::string error = SDL_GetError();
-		Msg( "[SDL]Failed to create window: " + error + "\n" );
-		return false;
-	}
-
-	m_GLContext = SDL_GL_CreateContext( m_pMainWindow );
-
-	if ( m_GLContext == 0 )
-	{
-		std::string error = SDL_GetError();
-		Msg( "[SDL]Failed to create OpenGL context: " + error + "\n" );
-		return false;
-	}
-
-	SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
-	SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
-	SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 2 );
-	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-
-	SDL_GL_SetSwapInterval( 1 );
-
-	glewExperimental = true;
-	if ( glewInit() != GLEW_OK )
-	{
-		Msg( "[GL]Failed to initialize GLEW!\n" );
-		return false;
-	}
-
-	glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
-	glClear( GL_COLOR_BUFFER_BIT );
-	SDL_GL_SwapWindow( m_pMainWindow );
-
-	g_SoundSystem = new SoundSystem;
 
 	return true;
 }
@@ -136,18 +86,13 @@ void Engine::RunEngine()
 	m_bRunning = true;
 
 	m_pMainGRP = new GRP( "duke3d.grp" );
-	//m_pMainGRP->SpewFileInformation();
-	//m_pMainGRP->DumpGRP();
-
-	//Bunch of test code
-	Sound test( "B3DIE03G.VOC", true, true );
+	Sound test( "GRABBAG.MID", true, true );
+	
 	Msg( ( std::string )"Size of VOCMainHeader_t: " + std::to_string( sizeof( VOCMainHeader_t ) ) + "\n" );
 	Msg( ( std::string )"Size of VOCDataBlock_SoundData_t: " + std::to_string( sizeof( VOCDataBlock_SoundData_t ) ) + "\n" );
 	Msg( ( std::string )"Size of VOCDataBlock_SoundDataNewFormat_t: " + std::to_string( sizeof( VOCDataBlock_SoundDataNewFormat_t ) ) + "\n" );
 
-	//DN3D.SpewFileInformation();
-	//DN3D.DumpGRP();
-	//DN3D.DumpGRPSeek();
+	Map e1l1( "E1L1.map" );
 
 	//Run main loop
 	MainLoop();
@@ -176,10 +121,11 @@ void Engine::MainLoop()
 				}
 			}
 		}
+
 		GetGame()->Update();
 		GetSoundSystem()->Update();
 
-		glClear( GL_COLOR_BUFFER_BIT );
-		SDL_GL_SwapWindow( m_pMainWindow );
+		GetRenderer()->Clear();
+		GetRenderer()->Swap();
 	}
 }
